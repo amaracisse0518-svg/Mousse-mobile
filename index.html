@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mousse Mobile</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22%230A2536%22/%3E%3Cg%20transform%3D%22translate%288%206%29%20scale%28.84%29%22%3E%3Cpath%20d%3D%22M50%205%20C50%205%2017%2041%2017%2063%20a33%2033%200%200%200%2066%200%20C83%2041%2050%205%2050%205z%22%20fill%3D%22%23FFFFFF%22/%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2242%22%20r%3D%226%22%20fill%3D%22%237FD0DB%22/%3E%3Ccircle%20cx%3D%2247%22%20cy%3D%2231%22%20r%3D%223.5%22%20fill%3D%22%230E5A78%22/%3E%3Ccircle%20cx%3D%2253%22%20cy%3D%2244%22%20r%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%237FD0DB%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M65%2035%20l1.7%205%205%201.7%20-5%201.7%20-1.7%205%20-1.7%20-5%20-5%20-1.7%205%20-1.7z%22%20fill%3D%22%23D9A93C%22/%3E%3Cpath%20d%3D%22M27%2076%20L27%2069%20Q28%2065%2033%2064%20L42%2062%20L49%2055%20Q51%2053%2054%2053%20L64%2053%20Q67%2053%2069%2055.5%20L74%2061%20Q77%2062%2077%2066%20L77%2076%20Z%22%20fill%3D%22%230A2536%22/%3E%3Cpath%20d%3D%22M50.5%2056%20L46%2061.5%20L57%2061.5%20L57%2056%20Z%22%20fill%3D%22%237FD0DB%22/%3E%3Cpath%20d%3D%22M59.5%2056%20L59.5%2061.5%20L71%2061.5%20L67.5%2057%20Q66.6%2056%2065%2056%20Z%22%20fill%3D%22%237FD0DB%22/%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2276%22%20r%3D%225.5%22%20fill%3D%22%230A2536%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%2266%22%20cy%3D%2276%22%20r%3D%225.5%22%20fill%3D%22%230A2536%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M31%2087%20H69%22%20stroke%3D%22%230E5A78%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icone-appli.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Plan : une colonne calme et aérée. Nuit marine pour l'en-tête, brume claire pour le fond, bleu pétrole pour les actions, une touche d'or pour ce qui est mis en avant. */
+:root{
+  --fond:#F3F7F9;
+  --surface:#FFFFFF;
+  --encre:#102230;
+  --gris:#56687A;
+  --trait:#DFE8ED;
+  --eau:#0E5A78;
+  --eau-clair:#E6F1F5;
+  --nuit:#0A2536;
+  --aqua:#7FD0DB;
+  --or:#A8812F;
+  --or-clair:#F7EFDC;
+  --vert:#1F7A4F;
+  --vert-clair:#E4F2EA;
+  --alerte:#B3261E;
+  --ombre:0 1px 2px rgba(10,37,54,.05),0 10px 30px rgba(10,37,54,.07);
+  --titre:"Lexend","Trebuchet MS",system-ui,sans-serif;
+  --texte:"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--fond);color:var(--encre);font-family:var(--texte);font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.app{max-width:560px;margin:0 auto;padding-bottom:48px}
+h1,h2,h3{font-family:var(--titre);font-weight:600;text-wrap:balance;margin:0;line-height:1.2;letter-spacing:-.01em}
+p{margin:0}
+[hidden]{display:none!important}
+button,a.btn{font:inherit;font-weight:700;cursor:pointer;border-radius:14px;min-height:60px;padding:12px 22px;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;text-align:center;width:100%;border:0;transition:background-color .15s,box-shadow .15s}
+.btn-eau{background:var(--eau);color:#fff;box-shadow:0 6px 16px rgba(14,90,120,.22)}
+.btn-eau:hover{background:#0B4B65}
+.btn-blanc{background:var(--surface);color:var(--eau);border:2px solid var(--trait)}
+.btn-blanc:hover{border-color:var(--eau)}
+.btn-ok{background:var(--vert-clair);color:var(--vert);border:2px solid #BFE0CC}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:4px solid var(--aqua);outline-offset:2px}
+button:active,a.btn:active{transform:translateY(1px)}
+button:disabled{opacity:.6;cursor:wait}
+
+/* En-tête */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:var(--nuit);color:#fff}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--titre);font-weight:600;font-size:20px;letter-spacing:.01em}
+.brand svg{flex:none}
+.top button{width:auto;min-height:46px;padding:6px 16px;background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.28);font-size:16.5px;box-shadow:none}
+.demo{background:var(--or-clair);border-bottom:1px solid #E8D9B4;color:#5C4718;font-size:15.5px;padding:10px 20px;text-align:center}
+
+.vue{padding:0 20px}
+
+/* Accueil */
+.hero{margin:0 -20px;background:linear-gradient(180deg,var(--nuit) 0%,#0E3448 100%);color:#fff;padding:8px 20px 30px;border-radius:0 0 28px 28px}
+.illu{display:block;width:100%;height:auto;border-radius:20px}
+.slogan{font-size:30px;font-weight:600;margin-top:22px;line-height:1.15}
+.slogan em{font-style:normal;color:var(--aqua)}
+.hero p{margin-top:10px;font-size:18.5px;color:#C9DDE6}
+.hero .actions{display:grid;gap:12px;margin-top:22px}
+.hero .btn-principal{background:#fff;color:var(--nuit);font-size:20px;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.hero .btn-principal:hover{background:#EEF6F8}
+
+.bloc{margin-top:34px}
+.surtitre{font-family:var(--titre);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--eau);margin-bottom:8px}
+.bloc>h2{font-size:24px;margin-bottom:16px}
+.carte{background:var(--surface);border:1px solid var(--trait);border-radius:20px;padding:20px;box-shadow:var(--ombre)}
+
+.marche{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.marche li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.marche .num{width:44px;height:44px;border-radius:50%;background:var(--eau-clair);color:var(--eau);font-family:var(--titre);font-weight:600;font-size:19px;display:grid;place-items:center}
+.marche b{display:block;font-size:19px}
+.marche span{color:var(--gris);font-size:17px}
+
+.formules-home{display:grid;gap:12px}
+.f-home{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;text-align:left;background:var(--surface);border:1px solid var(--trait);border-radius:18px;padding:16px;min-height:auto;color:var(--encre);box-shadow:var(--ombre);font-weight:400}
+.f-home:hover{border-color:var(--eau)}
+.f-home .ico{width:52px;height:52px;border-radius:14px;background:var(--eau-clair);display:grid;place-items:center}
+.f-home b{display:block;font-family:var(--titre);font-weight:600;font-size:18.5px;line-height:1.25}
+.f-home small{display:block;color:var(--gris);font-size:16px;line-height:1.35;margin-top:2px}
+.f-home .p{font-family:var(--titre);font-weight:600;font-size:17px;color:var(--eau);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.f-home .p i{display:block;font-style:normal;font-family:var(--texte);font-weight:400;font-size:14px;color:var(--gris)}
+.f-home.vedette{border:2px solid var(--or);position:relative}
+.f-home.vedette::before{content:"Le plus demandé";position:absolute;top:-12px;left:16px;background:var(--or);color:#fff;font-size:13px;font-weight:700;border-radius:99px;padding:2px 10px}
+
+.produits ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:14px}
+.produits li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start}
+.goutte{width:14px;height:14px;margin-top:7px;border-radius:50% 0 50% 50%;transform:rotate(-45deg);background:var(--aqua)}
+.avis-cta{display:grid;gap:14px;background:var(--eau-clair);border:0;box-shadow:none}
+.avis-cta h2{font-size:21px}
+.avis-cta p{color:var(--gris)}
+
+/* Réservation */
+.etape-info{display:grid;gap:10px;margin:22px 0 4px}
+.etape-info span{font-family:var(--titre);font-weight:600;color:var(--eau);font-size:16px;letter-spacing:.04em;text-transform:uppercase}
+.jauge{height:8px;background:var(--trait);border-radius:99px;overflow:hidden}
+.jauge i{display:block;height:100%;background:linear-gradient(90deg,var(--eau),#2A86A6);border-radius:99px;transition:width .35s ease}
+.vue h2{font-size:26px;margin:14px 0 6px}
+.aide{color:var(--gris);margin-bottom:18px}
+h3{font-size:20px;margin:30px 0 12px}
+.choix{display:grid;gap:12px}
+.pick{position:relative;display:block;background:var(--surface);border:2px solid var(--trait);border-radius:18px;padding:18px;cursor:pointer;box-shadow:var(--ombre);transition:border-color .15s,background-color .15s}
+.pick:hover{border-color:#B9D2DC}
+.pick input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;width:100%;height:100%}
+.pick:has(input:checked){border-color:var(--eau);background:#F7FBFC}
+.pick:has(input:focus-visible){outline:4px solid var(--aqua);outline-offset:3px}
+.pick-tete{display:flex;align-items:center;gap:14px}
+.rond{flex:none;width:28px;height:28px;border-radius:50%;border:2.5px solid #B8C9D2;display:grid;place-items:center;background:#fff;transition:all .15s}
+.pick:has(input:checked) .rond{border-color:var(--eau);background:var(--eau)}
+.pick:has(input:checked) .rond::after{content:"";width:11px;height:6px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(-45deg) translateY(-2px)}
+.carre{border-radius:8px}
+.pick-titre{flex:1;font-weight:700;font-size:19.5px;line-height:1.3}
+.pick-titre small{display:block;font-weight:400;font-size:16.5px;color:var(--gris);margin-top:2px}
+.prix{font-family:var(--titre);font-weight:600;font-size:19px;color:var(--eau);font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{position:absolute;top:-12px;left:18px;background:var(--or);color:#fff;font-size:13.5px;font-weight:700;border-radius:99px;padding:2px 11px}
+.detail{margin-top:16px;padding-top:16px;border-top:1px solid var(--trait);display:grid;gap:14px;font-size:17px}
+.detail b{display:block;font-family:var(--titre);font-weight:600;font-size:13.5px;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.detail ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.detail li{position:relative;padding-left:26px}
+.detail li::before{content:"";position:absolute;left:2px;top:9px;width:11px;height:6px;border-left:2.5px solid var(--vert);border-bottom:2.5px solid var(--vert);transform:rotate(-45deg)}
+.produits-txt{background:var(--eau-clair);border-radius:12px;padding:10px 14px;color:var(--encre)}
+.voiture-ico{flex:none}
+.pref-note{display:inline-block;background:var(--vert-clair);color:var(--vert);font-weight:700;font-size:14.5px;border-radius:99px;padding:3px 12px;margin-bottom:12px}
+
+.champ{display:grid;gap:8px;margin-bottom:20px}
+.champ label{font-weight:700;font-size:18.5px}
+.champ small{color:var(--gris);font-size:16px}
+input[type=text],input[type=tel],input[type=date],select,textarea{width:100%;font:inherit;font-size:19px;color:var(--encre);background:var(--surface);border:2px solid var(--trait);border-radius:14px;padding:14px 16px;min-height:60px;transition:border-color .15s}
+textarea{min-height:104px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--eau)}
+.loc{background:var(--surface);border:1px solid var(--trait);border-radius:20px;padding:20px;display:grid;gap:14px;margin-bottom:22px;box-shadow:var(--ombre)}
+.loc-tete{display:flex;gap:14px;align-items:center}
+.loc-tete b{display:block;font-family:var(--titre);font-weight:600;font-size:19.5px}
+.loc-tete span{display:block;color:var(--gris);font-size:16.5px}
+.pin{width:36px;height:36px;flex:none;border-radius:50% 50% 50% 0;background:var(--eau);transform:rotate(-45deg);display:grid;place-items:center}
+.pin::after{content:"";width:12px;height:12px;border-radius:50%;background:#fff}
+.statut-loc{font-size:17px;color:var(--gris)}
+.statut-loc:empty{display:none}
+.statut-loc a,.recap a{color:var(--eau);font-weight:700}
+
+/* Récapitulatif rangé par rubriques */
+.recap{margin:0;display:grid;gap:12px}
+.groupe{background:var(--surface);border:1px solid var(--trait);border-radius:18px;padding:6px 18px 4px;box-shadow:var(--ombre)}
+.groupe-tete{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0 4px}
+.groupe-tete b{font-family:var(--titre);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--gris)}
+.groupe-tete button{width:auto;min-height:40px;padding:4px 12px;font-size:16px;background:transparent;color:var(--eau);border:1.5px solid var(--trait);box-shadow:none}
+.groupe div.l{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid var(--trait);font-size:17.5px}
+.groupe-tete+div.l{border-top:0}
+.recap dt{color:var(--gris);flex:none}
+.recap dd{margin:0;text-align:right;font-weight:700;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.recap .tot{background:var(--nuit);color:#fff;border-radius:18px;padding:16px 18px;display:flex;justify-content:space-between;align-items:baseline}
+.recap .tot dt{color:#C9DDE6}
+.recap .tot dd{font-family:var(--titre);font-weight:600;font-size:23px;color:#fff}
+.erreur{color:var(--alerte);font-weight:700;margin:14px 0 0}
+.erreur:empty{display:none}
+
+.barre{position:sticky;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--trait);margin:28px -20px 0;padding:14px 20px 16px;display:grid;gap:10px;z-index:5}
+.total-ligne{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.total-ligne span{color:var(--gris)}
+.total-ligne b{font-family:var(--titre);font-weight:600;font-size:24px;color:var(--nuit);font-variant-numeric:tabular-nums}
+.boutons{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.boutons .btn-blanc{width:auto;padding:12px 18px}
+
+/* Merci + note */
+.grand-ok{width:72px;height:72px;border-radius:50%;background:var(--vert);display:grid;place-items:center;margin:30px 0 14px;box-shadow:0 0 0 10px var(--vert-clair)}
+.grand-ok::after{content:"";width:28px;height:14px;border-left:5px solid #fff;border-bottom:5px solid #fff;transform:rotate(-45deg) translateY(-4px)}
+.consigne{background:var(--eau-clair);border-radius:16px;padding:16px 18px;margin:16px 0;color:var(--encre)}
+.pile{display:grid;gap:12px;margin-top:18px}
+.ref{font-family:var(--titre);font-weight:600;color:var(--eau)}
+.etoiles{display:flex;gap:6px;justify-content:space-between;margin:12px 0 6px}
+.etoiles button{width:auto;flex:1;min-height:64px;padding:0;background:transparent;border:0;border-radius:12px;box-shadow:none}
+.etoiles svg{width:100%;max-width:56px;height:auto}
+.etoiles path{fill:#fff;stroke:#C5D3DA;stroke-width:2;transition:fill .15s}
+.etoiles button.on path{fill:#D9A93C;stroke:var(--or)}
+.etoile-texte{text-align:center;font-family:var(--titre);font-weight:600;font-size:19px;min-height:1.6em;color:var(--nuit)}
+@media (max-width:380px){body{font-size:18px}.slogan{font-size:26px}.f-home{grid-template-columns:44px 1fr;}.f-home .ico{width:44px;height:44px}.f-home .p{grid-column:2;text-align:left}}
+@media (prefers-reduced-motion:no-preference){
+  .bulle-anim{animation:monte 4s ease-in-out infinite alternate}
+  .bulle-anim.b2{animation-duration:5.5s}
+  .bulle-anim.b3{animation-duration:3.2s}
+  @keyframes monte{to{transform:translateY(-8px)}}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 5 C50 5 17 41 17 63 a33 33 0 0 0 66 0 C83 41 50 5 50 5z" fill="#FFFFFF"/><circle cx="38" cy="42" r="6" fill="#7FD0DB"/><circle cx="47" cy="31" r="3.5" fill="#0E5A78"/><circle cx="53" cy="44" r="4" fill="none" stroke="#7FD0DB" stroke-width="2"/><path d="M65 35 l1.7 5 5 1.7 -5 1.7 -1.7 5 -1.7 -5 -5 -1.7 5 -1.7z" fill="#D9A93C"/><path d="M27 76 L27 69 Q28 65 33 64 L42 62 L49 55 Q51 53 54 53 L64 53 Q67 53 69 55.5 L74 61 Q77 62 77 66 L77 76 Z" fill="#0A2536"/><path d="M50.5 56 L46 61.5 L57 61.5 L57 56 Z" fill="#7FD0DB"/><path d="M59.5 56 L59.5 61.5 L71 61.5 L67.5 57 Q66.6 56 65 56 Z" fill="#7FD0DB"/><circle cx="38" cy="76" r="5.5" fill="#0A2536" stroke="#FFFFFF" stroke-width="2"/><circle cx="66" cy="76" r="5.5" fill="#0A2536" stroke="#FFFFFF" stroke-width="2"/><path d="M31 87 H69" stroke="#0E5A78" stroke-width="2.5" stroke-linecap="round"/></svg>
+      Mousse Mobile
+    </div>
+    <button type="button" id="maison" hidden>Accueil</button>
+  </header>
+
+  <p class="demo" id="demo" hidden>Mode démonstration : les demandes ne sont pas encore envoyées. L'appli sera reliée à Firebase à la mise en ligne.</p>
+
+  <!-- ACCUEIL -->
+  <section class="vue" id="v-accueil">
+    <div class="hero">
+      <svg class="illu" viewBox="0 0 360 220" role="img" aria-label="Une voiture couverte de mousse, lavée et brillante">
+        <defs>
+          <linearGradient id="fond" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#123F57"/><stop offset="1" stop-color="#0B2C3F"/></linearGradient>
+          <linearGradient id="caisse" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#DCEBF1"/><stop offset="1" stop-color="#A9C6D3"/></linearGradient>
+          <linearGradient id="vitre" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3C88A8"/><stop offset="1" stop-color="#0E3448"/></linearGradient>
+          <radialGradient id="halo" cx=".7" cy=".3" r=".6"><stop offset="0" stop-color="#7FD0DB" stop-opacity=".22"/><stop offset="1" stop-color="#7FD0DB" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="360" height="220" rx="20" fill="url(#fond)"/>
+        <rect width="360" height="220" rx="20" fill="url(#halo)"/>
+        <g stroke="#7FD0DB" stroke-width="2" stroke-linecap="round" fill="none" opacity=".75">
+          <path d="M22 34 Q74 42 116 74"/><path d="M22 34 Q80 34 132 66" opacity=".7"/><path d="M22 34 Q68 52 104 86" opacity=".55"/>
+        </g>
+        <rect x="6" y="27" width="22" height="11" rx="4" fill="#D9A93C" transform="rotate(16 17 32)"/>
+        <g fill="#7FD0DB"><circle cx="64" cy="46" r="2"/><circle cx="88" cy="54" r="1.6"/><circle cx="104" cy="64" r="2.2"/><circle cx="76" cy="64" r="1.5"/><circle cx="122" cy="60" r="1.6"/></g>
+        <ellipse cx="192" cy="190" rx="148" ry="9" fill="#071F2D" opacity=".8"/>
+        <path d="M48 170 L48 146 Q50 132 70 128 L116 120 L150 92 Q160 84 176 84 L246 84 Q262 84 274 94 L304 120 L330 126 Q348 131 350 148 L350 170 Z" fill="url(#caisse)"/>
+        <path d="M162 94 L138 120 L208 120 L208 94 Z" fill="url(#vitre)"/>
+        <path d="M216 94 L216 120 L292 120 L268 98 Q262 94 254 94 Z" fill="url(#vitre)"/>
+        <path d="M172 98 L160 114" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".5"/>
+        <path d="M230 98 L222 110" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".5"/>
+        <path d="M64 142 Q194 132 338 142" stroke="#fff" stroke-width="2.5" fill="none" opacity=".9"/>
+        <rect x="326" y="136" width="16" height="7" rx="3" fill="#F1D48A"/>
+        <rect x="50" y="138" width="11" height="7" rx="3" fill="#C9514F"/>
+        <g><circle cx="106" cy="170" r="23" fill="#0A1C27"/><circle cx="106" cy="170" r="10.5" fill="#C9D6DD"/><circle cx="106" cy="170" r="3.5" fill="#0A1C27"/></g>
+        <g><circle cx="294" cy="170" r="23" fill="#0A1C27"/><circle cx="294" cy="170" r="10.5" fill="#C9D6DD"/><circle cx="294" cy="170" r="3.5" fill="#0A1C27"/></g>
+        <g fill="#fff">
+          <circle cx="74" cy="146" r="9"/><circle cx="88" cy="140" r="11"/><circle cx="104" cy="144" r="8.5"/><circle cx="120" cy="138" r="10"/><circle cx="136" cy="146" r="7.5"/>
+          <circle cx="154" cy="156" r="8.5"/><circle cx="168" cy="150" r="10"/><circle cx="184" cy="156" r="7.5"/>
+          <circle cx="66" cy="157" r="6.5"/><circle cx="132" cy="160" r="6.5"/>
+          <circle cx="180" cy="86" r="7.5"/><circle cx="194" cy="82" r="9.5"/><circle cx="209" cy="86" r="6.5"/>
+        </g>
+        <g fill="#fff">
+          <path d="M306 100 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3z"/>
+          <path d="M252 136 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" opacity=".9"/>
+        </g>
+        <path d="M330 52 l2.4 7 7 2.4 -7 2.4 -2.4 7 -2.4 -7 -7 -2.4 7 -2.4z" fill="#D9A93C" opacity=".9"/>
+        <g fill="none" stroke="#7FD0DB" stroke-width="1.8">
+          <circle class="bulle-anim" cx="236" cy="50" r="11"/><circle class="bulle-anim b2" cx="266" cy="32" r="6.5"/>
+          <circle class="bulle-anim b3" cx="210" cy="28" r="8.5"/><circle class="bulle-anim b2" cx="154" cy="42" r="5.5"/>
+        </g>
+      </svg>
+      <h1 class="slogan">Votre voiture brille, <em>sans bouger de chez vous.</em></h1>
+      <p>Nous venons laver votre voiture devant votre maison ou votre bureau, à Conakry.</p>
+      <div class="actions">
+        <button type="button" class="btn-principal" id="go-reserver">Réserver un lavage</button>
+      </div>
+    </div>
+
+    <section class="bloc">
+      <p class="surtitre">Comment ça marche</p>
+      <ol class="marche carte">
+        <li><span class="num">1</span><div><b>Choisissez votre formule</b><span>Et dites-nous comment vous voulez que nous lavions la voiture.</span></div></li>
+        <li><span class="num">2</span><div><b>Indiquez où vous êtes</b><span>Votre quartier, et votre position sur la carte si vous le souhaitez.</span></div></li>
+        <li><span class="num">3</span><div><b>Nous venons chez vous</b><span>Vous payez après le lavage, en espèces ou par mobile money.</span></div></li>
+      </ol>
+    </section>
+
+    <section class="bloc">
+      <p class="surtitre">Nos formules</p>
+      <h2>Choisissez le lavage qui vous convient</h2>
+      <div class="formules-home" id="apercu"></div>
+    </section>
+
+    <section class="bloc">
+      <p class="surtitre">Notre savoir-faire</p>
+      <div class="carte produits">
+        <h2 style="font-size:22px;margin-bottom:8px">Un lavage bien fait, avec les bons produits</h2>
+        <p style="color:var(--gris)">Nous arrivons avec tout le matériel. Pour un lavage soigné, nous utilisons :</p>
+        <ul>
+          <li><span class="goutte" aria-hidden="true"></span><span><b>Un shampoing auto doux</b> qui enlève la saleté sans abîmer la peinture.</span></li>
+          <li><span class="goutte" aria-hidden="true"></span><span><b>Des chiffons microfibres propres</b>, changés à chaque voiture, pour ne pas rayer.</span></li>
+          <li><span class="goutte" aria-hidden="true"></span><span><b>Un dégraissant pour les jantes</b> contre la boue et la poussière rouge.</span></li>
+          <li><span class="goutte" aria-hidden="true"></span><span><b>Un nettoyant pour l'intérieur</b> : sièges, tableau de bord et tapis.</span></li>
+          <li><span class="goutte" aria-hidden="true"></span><span><b>Une cire de protection</b> qui fait briller et garde la voiture propre plus longtemps.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="carte avis-cta">
+        <h2>Votre voiture a déjà été lavée ?</h2>
+        <p>Donnez-nous une note de 1 à 5 étoiles. Votre avis nous aide à mieux faire.</p>
+        <button type="button" class="btn-blanc" id="go-noter">Donner une note</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- RÉSERVATION -->
+  <section class="vue" id="v-reserver" hidden>
+    <form id="form" novalidate>
+      <div class="etape-info"><span id="etape-txt"></span><div class="jauge" aria-hidden="true"><i id="jauge"></i></div></div>
+
+      <div class="etape" data-e="0">
+        <h2>Quelle est votre voiture ?</h2>
+        <p class="aide">Appuyez sur la bonne réponse.</p>
+        <div class="choix" id="vehicules"></div>
+      </div>
+
+      <div class="etape" data-e="1">
+        <h2>Choisissez votre formule</h2>
+        <p class="aide">Chaque formule explique ce que nous faisons et les produits utilisés.</p>
+        <div class="choix" id="formules"></div>
+        <h3>Vous voulez aussi laver le moteur ?</h3>
+        <div class="choix" id="option"></div>
+      </div>
+
+      <div class="etape" data-e="2">
+        <h2>Comment voulez-vous que nous lavions votre voiture ?</h2>
+        <span class="pref-note">Gratuit</span>
+        <p class="aide">Cochez ce qui compte pour vous. Vous pouvez en cocher plusieurs, ou aucune.</p>
+        <div class="choix" id="prefs"></div>
+        <div class="champ" style="margin-top:20px">
+          <label for="autre">Autre demande pour l'équipe</label>
+          <textarea id="autre" placeholder="Ex. : attention à la rayure sur la portière arrière, laisser le siège bébé en place"></textarea>
+        </div>
+      </div>
+
+      <div class="etape" data-e="3">
+        <h2>Où se trouve la voiture ?</h2>
+        <div class="champ">
+          <label for="quartier">Votre quartier</label>
+          <input type="text" id="quartier" autocomplete="address-level3" placeholder="Ex. : Kipé, Lambanyi, Taouyah">
+        </div>
+        <div class="loc">
+          <div class="loc-tete">
+            <span class="pin" aria-hidden="true"></span>
+            <div><b>Partagez votre position</b><span>Le laveur vous retrouve directement sur la carte.</span></div>
+          </div>
+          <button type="button" class="btn-eau" id="localiser">Partager ma position</button>
+          <p class="statut-loc" id="statut-loc" role="status"></p>
+          <div class="champ" style="margin:0">
+            <label for="lien">Ou collez le lien de votre position</label>
+            <input type="text" id="lien" inputmode="url" placeholder="Lien Google Maps">
+            <small>Dans Google Maps : touchez le point bleu, puis « Partager ma position ».</small>
+          </div>
+        </div>
+        <h3 style="margin-top:6px">Y a-t-il de l'eau sur place ?</h3>
+        <div class="choix" id="eau"></div>
+        <h3>Quel jour ?</h3>
+        <div class="champ">
+          <label for="date">Jour du lavage</label>
+          <input type="date" id="date">
+        </div>
+        <div class="champ">
+          <label for="creneau">Heure</label>
+          <select id="creneau"></select>
+        </div>
+      </div>
+
+      <div class="etape" data-e="4">
+        <h2>Vos coordonnées</h2>
+        <p class="aide">Le laveur vous appelle en arrivant.</p>
+        <div class="champ">
+          <label for="nom">Votre nom</label>
+          <input type="text" id="nom" autocomplete="name">
+        </div>
+        <div class="champ">
+          <label for="tel">Votre numéro de téléphone</label>
+          <input type="tel" id="tel" autocomplete="tel" placeholder="6XX XX XX XX">
+        </div>
+        <h3>Vous payez après le lavage</h3>
+        <div class="choix" id="paiements"></div>
+        <h3>Vérifiez votre réservation</h3>
+        <div class="recap" id="recap"></div>
+      </div>
+
+      <p class="erreur" id="erreur" role="alert"></p>
+
+      <div class="barre">
+        <div class="total-ligne"><span>Total à payer</span><b id="total"></b></div>
+        <div class="boutons">
+          <button type="button" class="btn-blanc" id="retour">Retour</button>
+          <button type="submit" class="btn-eau" id="suivant">Continuer</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- MERCI -->
+  <section class="vue" id="v-merci" hidden>
+    <div class="grand-ok" aria-hidden="true"></div>
+    <h2 id="merci-titre">Votre demande est envoyée</h2>
+    <p class="aide">Numéro de réservation : <span class="ref" id="ref"></span></p>
+    <p class="consigne" id="merci-texte">Merci ! Notre équipe vous appelle bientôt pour confirmer l'heure de passage.</p>
+    <h3>Votre réservation</h3>
+    <div class="recap" id="recap2"></div>
+    <div class="pile">
+      <button type="button" class="btn-eau" id="retour-accueil">Revenir à l'accueil</button>
+    </div>
+  </section>
+
+  <!-- NOTE -->
+  <section class="vue" id="v-noter" hidden>
+    <h2 style="margin-top:24px">Votre avis compte</h2>
+    <p class="aide">Après le lavage, dites-nous si vous êtes satisfait.</p>
+    <div class="carte">
+      <p style="font-weight:700">Quelle note donnez-vous à notre lavage ?</p>
+      <div class="etoiles" id="etoiles" role="radiogroup" aria-label="Note sur 5"></div>
+      <p class="etoile-texte" id="etoile-texte">Appuyez sur une étoile</p>
+    </div>
+    <div class="champ" style="margin-top:18px">
+      <label for="avis-comm">Un mot pour l'équipe (facultatif)</label>
+      <textarea id="avis-comm" placeholder="Ex. : très bon travail, voiture comme neuve"></textarea>
+    </div>
+    <div class="champ">
+      <label for="avis-nom">Votre nom (facultatif)</label>
+      <input type="text" id="avis-nom" autocomplete="name">
+    </div>
+    <p class="erreur" id="erreur-note" role="alert"></p>
+    <div class="pile">
+      <button type="button" class="btn-eau" id="valider-note">Envoyer ma note</button>
+    </div>
+    <div id="note-ok" hidden>
+      <div class="grand-ok" aria-hidden="true"></div>
+      <h2>Merci pour votre note !</h2>
+      <p class="aide" id="note-ok-texte">Elle aide notre équipe à toujours mieux faire.</p>
+      <div class="pile"><button type="button" class="btn-blanc" id="note-accueil">Revenir à l'accueil</button></div>
+    </div>
+  </section>
+
+</div>
+
+<script src="config.js"></script>
+<script>
+/* ===== Réglages ===== */
+const CFG = window.FIREBASE_CONFIG || {};
+const FIREBASE_V = "10.12.2";
+const VEHICULES=[
+  {id:"petite",t:"Petite voiture",d:"Citadine, berline"},
+  {id:"grosse",t:"Grosse voiture",d:"SUV, 4x4, pick-up, minibus"}
+];
+const FORMULES=[
+  {id:"simple",ico:"goutte",t:"Lavage simple",s:"Sans produit",prix:150000,duree:"environ 1 h",
+   fait:["Rinçage de la carrosserie à l'eau claire","Essuyage avec des chiffons microfibres","Aspiration de l'intérieur","Nettoyage des vitres"],
+   prod:"Eau claire et chiffons microfibres. Idéal pour une voiture peu sale."},
+  {id:"produit",ico:"flacon",t:"Lavage simple avec produit",s:"Intérieur et extérieur",prix:250000,duree:"environ 1 h 30",badge:"Le plus demandé",
+   fait:["Shampoing de la carrosserie","Nettoyage des jantes","Aspiration des sièges et des tapis","Tableau de bord et vitres"],
+   prod:"Shampoing auto doux, nettoyant intérieur, produit pour vitres."},
+  {id:"soigne",ico:"eclat",t:"Lavage soigné et brillant",s:"Avec les produits adaptés",prix:350000,duree:"environ 2 h 30",
+   fait:["Tout le lavage avec produit","Dégraissage des jantes et des pneus","Plastiques intérieurs rénovés","Cire de protection et lustrage"],
+   prod:"Shampoing doux, dégraissant jantes, rénovateur plastiques, cire, brillant pneus. La voiture ressort comme neuve."},
+  {id:"voyage",ico:"route",t:"Retour de long voyage",s:"Voiture très sale",prix:500000,duree:"environ 3 h",
+   fait:["Prélavage à la mousse active","Bas de caisse et passages de roue","Lavage soigné complet","Intérieur en profondeur : sièges et tapis"],
+   prod:"Mousse active, dégraissant, shampoing doux, nettoyant tissus. Contre la boue, la poussière rouge et les insectes."}
+];
+const MOTEUR={petite:50000,grosse:80000};
+const ICONES={
+  goutte:'<path d="M14 4 C14 4 6 13 6 18 a8 8 0 0 0 16 0 C22 13 14 4 14 4z" fill="#0E5A78"/><path d="M11 18 a3 3 0 0 0 3 3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>',
+  flacon:'<rect x="8" y="10" width="12" height="15" rx="3" fill="#0E5A78"/><rect x="11" y="5" width="6" height="5" rx="1" fill="#0E5A78"/><path d="M17 5 h5 v3" stroke="#0E5A78" stroke-width="2" fill="none"/><circle cx="23" cy="12" r="1.3" fill="#7FD0DB"/><circle cx="25" cy="15.5" r="1" fill="#7FD0DB"/><rect x="11" y="15" width="6" height="5" rx="1" fill="#fff" opacity=".85"/>',
+  eclat:'<path d="M13 3 l2.6 7.4 7.4 2.6 -7.4 2.6 -2.6 7.4 -2.6 -7.4 -7.4 -2.6 7.4 -2.6z" fill="#0E5A78"/><path d="M22 17 l1.3 3.7 3.7 1.3 -3.7 1.3 -1.3 3.7 -1.3 -3.7 -3.7 -1.3 3.7 -1.3z" fill="#D9A93C"/>',
+  route:'<path d="M10 25 L13 4 h2 L18 25z" fill="#0E5A78" transform="translate(-6 0)"/><path d="M15 25 L18 4 h2 L23 25z" fill="#0E5A78" transform="translate(5 0)"/><path d="M14 6 v3 M14 12 v3 M14 18 v4" stroke="#D9A93C" stroke-width="2"/>'
+};
+const ico=n=>`<svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">${ICONES[n]}</svg>`;
+const EAU=[{id:"oui",t:"Oui, il y a de l'eau"},{id:"non",t:"Non, apportez l'eau"}];
+const PAIEMENTS=[{id:"especes",t:"Espèces"},{id:"om",t:"Orange Money"},{id:"momo",t:"MTN MoMo"}];
+const CRENEAUX=["Le plus tôt possible","Entre 8 h et 10 h","Entre 10 h et 12 h","Entre 12 h et 14 h","Entre 14 h et 16 h","Entre 16 h et 18 h"];
+const NOTES=["","Pas satisfait","Peu satisfait","Correct","Satisfait","Très satisfait"];
+const PREFS=[
+  {id:"jantes",t:"Insister sur les jantes et les pneus"},
+  {id:"tapis",t:"Bien nettoyer les tapis et le coffre"},
+  {id:"vitres",t:"Vitres impeccables, sans traces"},
+  {id:"parfum",t:"Mettre un parfum dans la voiture",contre:"sansparfum"},
+  {id:"sansparfum",t:"Aucun parfum, aucune odeur forte",contre:"parfum"},
+  {id:"affaires",t:"Ne pas toucher à mes affaires personnelles"},
+  {id:"peu_eau",t:"Utiliser peu d'eau"},
+  {id:"presence",t:"Je veux être présent pendant le lavage"}
+];
+
+/* ===== Outils ===== */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const gnf=n=>Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g," ")+" GNF";
+const find=(a,id)=>a.find(x=>x.id===id);
+const aujourdhui=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)};
+const estLien=u=>/^https?:\/\/\S+$/.test(String(u||"").trim());
+const vide=()=>({vue:"accueil",e:0,veh:"petite",formule:"produit",moteur:false,prefs:[],autre:"",eau:"oui",quartier:"",lien:"",date:aujourdhui(),creneau:CRENEAUX[0],nom:"",tel:"",pay:"especes",ref:"",note:0,comm:"",avisNom:""});
+let S=vide();
+
+function total(){return find(FORMULES,S.formule).prix+(S.moteur?MOTEUR[S.veh]:0)}
+function quand(){return new Date(S.date+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+", "+S.creneau.toLowerCase()}
+function lignes(){
+  const f=find(FORMULES,S.formule);
+  const L=[["Véhicule",find(VEHICULES,S.veh).t],["Formule",f.t+" ("+gnf(f.prix)+")"]];
+  if(S.moteur)L.push(["Lavage moteur","+ "+gnf(MOTEUR[S.veh])]);
+  L.push(["Vos préférences",S.prefs.length?S.prefs.map(id=>find(PREFS,id).t).join(" · "):"Aucune"]);
+  if(S.autre.trim())L.push(["Autre demande",S.autre.trim()]);
+  L.push(["Quartier",S.quartier.trim()]);
+  L.push(["Position",estLien(S.lien)?S.lien.trim():"non partagée"]);
+  L.push(["Eau sur place",S.eau==="oui"?"Oui":"Non, à apporter"]);
+  L.push(["Quand",quand()]);
+  if(S.nom.trim())L.push(["Client",S.nom.trim()]);
+  if(S.tel.trim())L.push(["Téléphone",S.tel.trim()]);
+  L.push(["Paiement",find(PAIEMENTS,S.pay).t]);
+  return L;
+}
+const GROUPES=[
+  ["Votre lavage",1,["Véhicule","Formule","Lavage moteur","Vos préférences","Autre demande"]],
+  ["Lieu et jour",3,["Quartier","Position","Eau sur place","Quand"]],
+  ["Vos coordonnées",4,["Client","Téléphone","Paiement"]]
+];
+function recapHTML(modifiable){
+  const L=lignes();
+  const ligne=([a,b])=>`<div class="l"><dt>${esc(a)}</dt><dd>${a==="Position"&&estLien(b)?`<a href="${esc(b)}" target="_blank" rel="noopener">Ouvrir la carte</a>`:esc(b)}</dd></div>`;
+  return GROUPES.map(([titre,etape,cles])=>{
+    const ls=L.filter(([a])=>cles.includes(a));
+    if(!ls.length)return "";
+    return `<div class="groupe"><div class="groupe-tete"><b>${titre}</b>${modifiable&&etape!==4?`<button type="button" data-etape="${etape}">Modifier</button>`:""}</div>${ls.map(ligne).join("")}</div>`;
+  }).join("")+`<div class="tot"><dt>Total à payer</dt><dd>${gnf(total())}</dd></div>`;
+}
+function commande(){
+  const f=find(FORMULES,S.formule);
+  return {
+    ref:S.ref,client:S.nom.trim().slice(0,80),tel:S.tel.trim().slice(0,25),
+    vehicule:find(VEHICULES,S.veh).t,formule:f.t,formulePrix:f.prix,
+    moteur:S.moteur,moteurPrix:S.moteur?MOTEUR[S.veh]:0,
+    preferences:S.prefs.map(id=>find(PREFS,id).t),autreDemande:S.autre.trim().slice(0,500),
+    quartier:S.quartier.trim().slice(0,120),position:estLien(S.lien)?S.lien.trim().slice(0,400):"",
+    eau:S.eau==="oui"?"Oui":"Non, à apporter",jour:S.date,creneau:S.creneau,
+    paiement:find(PAIEMENTS,S.pay).t,total:total(),statut:"nouvelle"
+  };
+}
+
+/* ===== Firebase ===== */
+const configure=()=>!!(CFG.apiKey&&CFG.projectId);
+let fbPromesse=null;
+function firebase(){
+  if(!configure())return Promise.resolve(null);
+  if(!fbPromesse)fbPromesse=(async()=>{
+    const base="https://www.gstatic.com/firebasejs/"+FIREBASE_V+"/";
+    const app=await import(base+"firebase-app.js");
+    const fs=await import(base+"firebase-firestore.js");
+    return {fs,db:fs.getFirestore(app.initializeApp(CFG))};
+  })().catch(e=>{fbPromesse=null;throw e});
+  return fbPromesse;
+}
+const delai=(p,ms)=>Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error("delai")),ms))]);
+async function enregistrer(collection,donnees){
+  const f=await delai(firebase(),15000);
+  if(!f)return false;
+  await delai(f.fs.addDoc(f.fs.collection(f.db,collection),Object.assign({},donnees,{cree:f.fs.serverTimestamp()})),20000);
+  return true;
+}
+
+/* ===== Construction ===== */
+const rond=(carre)=>`<span class="rond${carre?" carre":""}" aria-hidden="true"></span>`;
+const icoVoiture=(grand)=>`<svg class="voiture-ico" width="54" height="30" viewBox="0 0 54 30" aria-hidden="true"><path d="${grand?"M3 22 V12 Q3 9 6 9 H12 L16 3 H40 Q44 3 46 7 L49 12 Q51 13 51 16 V22 Z":"M3 22 V16 Q3 13 7 12 L15 11 L21 5 H35 Q38 5 40 8 L44 12 Q51 13 51 17 V22 Z"}" fill="#0A6AA1"/><circle cx="14" cy="23" r="5" fill="#0B2233"/><circle cx="40" cy="23" r="5" fill="#0B2233"/></svg>`;
+function construire(){
+  $("apercu").innerHTML=FORMULES.map(f=>`<button type="button" class="f-home${f.badge?" vedette":""}" data-f="${f.id}"><span class="ico">${ico(f.ico)}</span><span><b>${f.t}</b><small>${f.s} · ${f.duree}</small></span><span class="p">${gnf(f.prix)}<i>Choisir</i></span></button>`).join("");
+  $("vehicules").innerHTML=VEHICULES.map((v,i)=>`<label class="pick"><input type="radio" name="veh" id="veh-${v.id}" value="${v.id}"><span class="pick-tete">${rond()}${icoVoiture(i===1)}<span class="pick-titre">${v.t}<small>${v.d}</small></span></span></label>`).join("");
+  $("formules").innerHTML=FORMULES.map(f=>`<label class="pick">${f.badge?`<span class="badge">${f.badge}</span>`:""}<input type="radio" name="formule" id="f-${f.id}" value="${f.id}"><span class="pick-tete">${rond()}<span class="pick-titre">${f.t}<small>${f.s} · ${f.duree}</small></span><span class="prix">${gnf(f.prix)}</span></span><span class="detail"><span><b>Ce que nous faisons</b><ul>${f.fait.map(x=>`<li>${x}</li>`).join("")}</ul></span><span><b>Produits utilisés</b><span class="produits-txt" style="display:block">${f.prod}</span></span></span></label>`).join("");
+  $("eau").innerHTML=EAU.map(e=>`<label class="pick"><input type="radio" name="eau" id="eau-${e.id}" value="${e.id}"><span class="pick-tete">${rond()}<span class="pick-titre">${e.t}</span></span></label>`).join("");
+  $("paiements").innerHTML=PAIEMENTS.map(p=>`<label class="pick"><input type="radio" name="pay" id="pay-${p.id}" value="${p.id}"><span class="pick-tete">${rond()}<span class="pick-titre">${p.t}</span></span></label>`).join("");
+  $("creneau").innerHTML=CRENEAUX.map(c=>`<option>${c}</option>`).join("");
+  $("date").min=aujourdhui();
+  const etoile=`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" stroke-linejoin="round"/></svg>`;
+  $("etoiles").innerHTML=[1,2,3,4,5].map(n=>`<button type="button" role="radio" aria-checked="false" aria-label="${n} étoile${n>1?"s":""} sur 5" data-n="${n}">${etoile}</button>`).join("");
+}
+function construirePrefs(){
+  $("prefs").innerHTML=PREFS.map(p=>`<label class="pick"><input type="checkbox" name="pref" id="pref-${p.id}" value="${p.id}"${S.prefs.includes(p.id)?" checked":""}><span class="pick-tete">${rond(true)}<span class="pick-titre">${p.t}</span></span></label>`).join("");
+}
+function construireOption(){
+  $("option").innerHTML=`<label class="pick"><input type="checkbox" id="moteur"${S.moteur?" checked":""}><span class="pick-tete">${rond(true)}<span class="pick-titre">Oui, laver le moteur<small>Dégraissage à la main</small></span><span class="prix">+ ${gnf(MOTEUR[S.veh])}</span></span></label>`;
+}
+function remplir(){
+  construireOption();construirePrefs();$("autre").value=S.autre;
+  [["veh",S.veh],["formule",S.formule],["eau",S.eau],["pay",S.pay]].forEach(([n,v])=>document.querySelectorAll(`input[name=${n}]`).forEach(i=>i.checked=i.value===v));
+  ["quartier","lien","date","creneau","nom","tel"].forEach(k=>$(k).value=S[k]);
+  $("avis-comm").value=S.comm;$("avis-nom").value=S.avisNom;
+  majLoc();majEtoiles();
+}
+
+/* ===== Affichage ===== */
+function afficher(){
+  ["accueil","reserver","merci","noter"].forEach(v=>$("v-"+v).hidden=S.vue!==v);
+  $("maison").hidden=S.vue==="accueil";
+  if(S.vue==="reserver"){
+    document.querySelectorAll(".etape").forEach(d=>d.hidden=+d.dataset.e!==S.e);
+    $("etape-txt").textContent="Étape "+(S.e+1)+" sur 5";
+    $("jauge").style.width=((S.e+1)/5*100)+"%";
+    $("retour").textContent=S.e===0?"Accueil":"Retour";
+    $("suivant").textContent=S.e===4?"Envoyer ma demande":"Continuer";
+    $("total").textContent=gnf(total());
+    if(S.e===4)$("recap").innerHTML=recapHTML(true);
+  }
+  if(S.vue==="merci"){
+    $("ref").textContent=S.ref;
+    $("recap2").innerHTML=recapHTML();
+  }
+}
+function aller(vue,e){
+  S.vue=vue;if(e!==undefined)S.e=e;
+  $("erreur").textContent="";
+  afficher();window.scrollTo({top:0});
+}
+function verifier(){
+  if(S.e===3){
+    if(S.quartier.trim().length<2){$("quartier").focus();return "Écrivez votre quartier pour que le laveur vous trouve."}
+    if(!S.date||S.date<aujourdhui()){$("date").focus();return "Choisissez un jour à partir d'aujourd'hui."}
+  }
+  if(S.e===4){
+    if(S.nom.trim().length<2){$("nom").focus();return "Écrivez votre nom."}
+    if(S.tel.replace(/\D/g,"").length<8){$("tel").focus();return "Écrivez votre numéro de téléphone en entier."}
+  }
+  return "";
+}
+
+/* ===== Position ===== */
+function majLoc(prec){
+  const st=$("statut-loc"),b=$("localiser");
+  if(estLien(S.lien)){
+    b.textContent="Position partagée";b.className="btn-ok";
+    st.innerHTML=(prec?"Position trouvée, précise à "+prec+" mètres. ":"Position enregistrée. ")+`<a href="${esc(S.lien.trim())}" target="_blank" rel="noopener">Voir sur la carte</a>`;
+  }else{b.textContent="Partager ma position";b.className="btn-eau";st.textContent=""}
+}
+function localiser(){
+  const st=$("statut-loc"),b=$("localiser");
+  const echec=()=>{b.textContent="Réessayer";st.textContent="Votre position n'a pas pu être lue. Vous pouvez coller le lien Google Maps juste en dessous."};
+  if(!navigator.geolocation){echec();return}
+  b.textContent="Recherche en cours…";st.textContent="";
+  try{
+    navigator.geolocation.getCurrentPosition(p=>{
+      S.lien="https://www.google.com/maps?q="+p.coords.latitude.toFixed(6)+","+p.coords.longitude.toFixed(6);
+      $("lien").value=S.lien;majLoc(Math.round(p.coords.accuracy));
+    },echec,{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+  }catch(_){echec()}
+}
+
+/* ===== Note ===== */
+function majEtoiles(){
+  document.querySelectorAll("#etoiles button").forEach(b=>{const n=+b.dataset.n;b.classList.toggle("on",n<=S.note);b.setAttribute("aria-checked",String(n===S.note))});
+  $("etoile-texte").textContent=S.note?S.note+" sur 5 : "+NOTES[S.note]:"Appuyez sur une étoile";
+}
+/* ===== Envois ===== */
+let envoiEnCours=false;
+async function envoyerDemande(){
+  if(envoiEnCours)return;envoiEnCours=true;
+  const b=$("suivant");b.disabled=true;b.textContent="Envoi en cours…";$("erreur").textContent="";
+  if(!S.ref){const d=new Date();S.ref="MM-"+String(d.getDate()).padStart(2,"0")+String(d.getMonth()+1).padStart(2,"0")+"-"+(1000+Math.floor(Math.random()*9000))}
+  let ok=false;
+  try{
+    const envoye=await enregistrer("commandes",commande());
+    try{localStorage.setItem("mm-derniere-ref",S.ref)}catch(_){}
+    $("merci-titre").textContent=envoye?"Votre demande est envoyée":"Demande prête (démonstration)";
+    $("merci-texte").textContent=envoye?"Merci ! Notre équipe vous appelle bientôt pour confirmer l'heure de passage.":"En mode démonstration, la demande n'est pas envoyée. Une fois l'appli en ligne, elle arrivera directement dans l'espace gérant.";
+    ok=true;
+  }catch(_){
+    $("erreur").textContent="L'envoi n'a pas marché. Vérifiez votre connexion internet, puis appuyez de nouveau sur « Envoyer ma demande ».";
+  }
+  envoiEnCours=false;b.disabled=false;
+  if(ok){aller("merci");S.e=0}else afficher();
+}
+async function envoyerNote(){
+  if(!S.note){$("erreur-note").textContent="Appuyez d'abord sur une étoile pour choisir votre note.";return}
+  const b=$("valider-note");if(b.disabled)return;b.disabled=true;b.textContent="Envoi en cours…";$("erreur-note").textContent="";
+  let ref="";try{ref=localStorage.getItem("mm-derniere-ref")||""}catch(_){}
+  try{
+    const envoye=await enregistrer("avis",{note:S.note,commentaire:S.comm.trim().slice(0,500),client:S.avisNom.trim().slice(0,80),ref:(S.ref||ref).slice(0,20)});
+    $("note-ok-texte").textContent=envoye?"Elle aide notre équipe à toujours mieux faire.":"Mode démonstration : la note n'est pas envoyée tant que l'appli n'est pas en ligne.";
+    $("note-ok").hidden=false;$("note-ok").scrollIntoView({behavior:"smooth",block:"center"});
+  }catch(_){
+    $("erreur-note").textContent="L'envoi n'a pas marché. Vérifiez votre connexion internet et réessayez.";b.disabled=false;
+  }finally{b.textContent="Envoyer ma note"}
+}
+
+/* ===== Démarrage ===== */
+function demarrer(sauve){
+  if(sauve&&sauve.veh)S=Object.assign(vide(),sauve);
+  if(!find(VEHICULES,S.veh))S.veh="petite";
+  if(!find(FORMULES,S.formule))S.formule="produit";
+  construire();remplir();
+  if(S.vue==="merci"&&!S.ref)S.vue="accueil";
+  $("demo").hidden=configure();
+  afficher();
+
+  const form=$("form");
+  form.addEventListener("change",e=>{
+    const t=e.target;
+    if(t.name==="veh"){S.veh=t.value;construireOption()}
+    else if(t.name==="formule")S.formule=t.value;
+    else if(t.name==="eau")S.eau=t.value;
+    else if(t.name==="pay")S.pay=t.value;
+    else if(t.id==="moteur")S.moteur=t.checked;
+    else if(t.name==="pref"){
+      const p=find(PREFS,t.value);
+      if(t.checked&&p.contre){const c=$("pref-"+p.contre);if(c)c.checked=false}
+      S.prefs=[...document.querySelectorAll("input[name=pref]:checked")].map(i=>i.value);
+    }
+    else if(t.id in S)S[t.id]=t.value;
+    afficher();
+  });
+  form.addEventListener("input",e=>{const t=e.target;if(t.id in S&&t.type!=="radio"&&t.type!=="checkbox")S[t.id]=t.value;if(t.id==="lien")majLoc()});
+  form.addEventListener("submit",e=>{
+    e.preventDefault();
+    const m=verifier();if(m){$("erreur").textContent=m;return}
+    if(S.e<4){S.e++;$("erreur").textContent="";afficher();window.scrollTo({top:0});return}
+    envoyerDemande();
+  });
+  $("retour").addEventListener("click",()=>{if(S.e===0)aller("accueil");else{S.e--;$("erreur").textContent="";afficher();window.scrollTo({top:0})}});
+  $("localiser").addEventListener("click",localiser);
+  $("go-reserver").addEventListener("click",()=>{S.ref="";aller("reserver",0)});
+  $("apercu").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.formule=b.dataset.f;S.ref="";remplir();aller("reserver",0)});
+  $("recap").addEventListener("click",e=>{const b=e.target.closest("button[data-etape]");if(b){S.e=+b.dataset.etape;$("erreur").textContent="";afficher();window.scrollTo({top:0})}});
+  $("go-noter").addEventListener("click",()=>{$("note-ok").hidden=true;$("valider-note").disabled=false;aller("noter")});
+  $("note-accueil").addEventListener("click",()=>{S.note=0;S.comm="";S.avisNom="";remplir();aller("accueil")});
+  $("maison").addEventListener("click",()=>aller("accueil"));
+  $("retour-accueil").addEventListener("click",()=>aller("accueil"));
+  $("etoiles").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.note=+b.dataset.n;$("erreur-note").textContent="";majEtoiles()});
+  $("avis-comm").addEventListener("input",e=>S.comm=e.target.value);
+  $("avis-nom").addEventListener("input",e=>S.avisNom=e.target.value);
+  $("autre").addEventListener("input",e=>S.autre=e.target.value);
+  $("valider-note").addEventListener("click",envoyerNote);
+  window.claude?.hot?.snapshot?.(()=>S);
+}
+if(window.claude?.hot?.ready)window.claude.hot.ready(demarrer);else demarrer(window.claude?.hot?.data??{});
+</script>
+</body>
+</html>

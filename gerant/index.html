@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mousse Mobile – Espace gérant</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22%230A2536%22/%3E%3Cg%20transform%3D%22translate%288%206%29%20scale%28.84%29%22%3E%3Cpath%20d%3D%22M50%205%20C50%205%2017%2041%2017%2063%20a33%2033%200%200%200%2066%200%20C83%2041%2050%205%2050%205z%22%20fill%3D%22%23FFFFFF%22/%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2242%22%20r%3D%226%22%20fill%3D%22%237FD0DB%22/%3E%3Ccircle%20cx%3D%2247%22%20cy%3D%2231%22%20r%3D%223.5%22%20fill%3D%22%230E5A78%22/%3E%3Ccircle%20cx%3D%2253%22%20cy%3D%2244%22%20r%3D%224%22%20fill%3D%22none%22%20stroke%3D%22%237FD0DB%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M65%2035%20l1.7%205%205%201.7%20-5%201.7%20-1.7%205%20-1.7%20-5%20-5%20-1.7%205%20-1.7z%22%20fill%3D%22%23D9A93C%22/%3E%3Cpath%20d%3D%22M27%2076%20L27%2069%20Q28%2065%2033%2064%20L42%2062%20L49%2055%20Q51%2053%2054%2053%20L64%2053%20Q67%2053%2069%2055.5%20L74%2061%20Q77%2062%2077%2066%20L77%2076%20Z%22%20fill%3D%22%230A2536%22/%3E%3Cpath%20d%3D%22M50.5%2056%20L46%2061.5%20L57%2061.5%20L57%2056%20Z%22%20fill%3D%22%237FD0DB%22/%3E%3Cpath%20d%3D%22M59.5%2056%20L59.5%2061.5%20L71%2061.5%20L67.5%2057%20Q66.6%2056%2065%2056%20Z%22%20fill%3D%22%237FD0DB%22/%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2276%22%20r%3D%225.5%22%20fill%3D%22%230A2536%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%2266%22%20cy%3D%2276%22%20r%3D%225.5%22%20fill%3D%22%230A2536%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M31%2087%20H69%22%20stroke%3D%22%230E5A78%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icone-appli.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Même monde que l'appli client : ciel clair, bleu profond, écume. Tableau de bord : alerte en tête, demandes en cartes. */
+:root{
+  --ciel:#F3F7F9;--mousse:#FFFFFF;--encre:#102230;--gris:#56687A;--eau:#0E5A78;--profond:#0A2536;
+  --bulle:#7FD0DB;--ecume:#DFE8ED;--etoile:#D9A93C;--vert:#1F7A4F;--alerte:#B3261E;--or:#A8812F;
+  --ombre:0 1px 2px rgba(10,37,54,.05),0 10px 30px rgba(10,37,54,.07);
+  --titre:"Lexend","Trebuchet MS",system-ui,sans-serif;
+  --texte:"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ciel);color:var(--encre);font-family:var(--texte);font-size:18px;line-height:1.5}
+.app{max-width:720px;margin:0 auto;padding:0 0 40px}
+h1,h2,h3{font-family:var(--titre);font-weight:600;margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+[hidden]{display:none!important}
+button{font:inherit;font-weight:700;cursor:pointer;border-radius:14px;min-height:52px;padding:8px 18px;border:0}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(--etoile);outline-offset:2px}
+.btn-eau{background:var(--eau);color:var(--mousse)}
+.btn-blanc{background:var(--mousse);color:var(--eau);border:2px solid var(--eau)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--profond);color:var(--mousse)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--titre);font-weight:600;font-size:19px}
+.brand small{display:block;font-family:var(--texte);font-weight:400;font-size:14px;opacity:.8}
+.top button{min-height:44px;padding:4px 14px;background:transparent;color:var(--mousse);border:2px solid rgba(255,255,255,.55);font-size:16px}
+main{padding:0 18px}
+.carte{background:var(--mousse);border:1px solid var(--ecume);border-radius:20px;padding:20px;box-shadow:var(--ombre)}
+.connexion{margin-top:28px;display:grid;gap:16px}
+.champ{display:grid;gap:6px}
+.champ label{font-weight:700}
+input{width:100%;font:inherit;color:var(--encre);background:var(--mousse);border:2.5px solid var(--ecume);border-radius:14px;padding:12px 14px;min-height:56px}
+input:focus{border-color:var(--eau)}
+.bandeau{background:#F7EFDC;border-bottom:1px solid #E8D9B4;color:#5C4718;font-size:16px;padding:10px 18px;text-align:center}
+.erreur{color:var(--alerte);font-weight:700}
+.erreur:empty{display:none}
+.info{color:var(--gris)}
+.alerte{display:flex;align-items:center;gap:12px;background:var(--profond);color:#fff;font-weight:700;border-radius:16px;padding:14px 16px;margin-top:16px}
+.alerte i{width:12px;height:12px;border-radius:50%;background:var(--bulle);flex:none}
+@media (prefers-reduced-motion:no-preference){.alerte i{animation:pulse 1s ease-in-out infinite alternate}@keyframes pulse{to{transform:scale(1.5);opacity:.5}}}
+.tuiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.tuile{background:var(--mousse);border:1px solid var(--ecume);border-radius:16px;padding:12px 14px;box-shadow:var(--ombre)}
+.tuile b{display:block;font-family:var(--titre);font-weight:600;font-size:28px;font-variant-numeric:tabular-nums;color:var(--profond)}
+.tuile span{font-size:15px;color:var(--gris)}
+.tuile.chaud{border:2px solid var(--eau);background:#E6F1F5}
+.onglets{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.onglets button{min-height:44px;padding:4px 14px;font-size:16px;background:var(--mousse);color:var(--encre);border:2px solid var(--ecume)}
+.onglets button[aria-pressed="true"]{background:var(--profond);color:var(--mousse);border-color:var(--profond)}
+.liste{display:grid;gap:14px}
+.cmd{background:var(--mousse);border:1px solid var(--ecume);border-left:6px solid var(--ecume);border-radius:18px;padding:18px;display:grid;gap:14px;box-shadow:var(--ombre)}
+.cmd[data-s="nouvelle"]{border-left-color:var(--or)}
+.cmd[data-s="acceptee"],.cmd[data-s="en_route"]{border-left-color:var(--eau)}
+.cmd[data-s="terminee"]{border-left-color:var(--vert)}
+.cmd[data-s="annulee"]{border-left-color:#9AA7B0;opacity:.85}
+.cmd-tete{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.cmd-tete b{font-size:20px;display:block}
+.cmd-tete small{color:var(--gris);font-size:15px}
+.pastille{font-size:14px;font-weight:700;border-radius:99px;padding:3px 11px;white-space:nowrap;background:var(--ciel);color:var(--profond)}
+.pastille.nouvelle{background:#F7EFDC;color:#7A5C17}
+.pastille.terminee{background:#DDF2E5;color:var(--vert)}
+.pastille.annulee{background:#ECEFF1;color:#4A5A64}
+.formule{display:flex;justify-content:space-between;gap:12px;align-items:baseline;background:#E6F1F5;border-radius:12px;padding:10px 12px}
+.formule b{font-size:18px}
+.formule span{font-family:var(--titre);font-weight:600;font-size:20px;color:var(--profond);white-space:nowrap;font-variant-numeric:tabular-nums}
+.prefs h3{font-family:var(--texte);font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--eau);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#E6F1F5;border:1px solid #BFD6E0;color:var(--profond);border-radius:99px;padding:3px 11px;font-size:15.5px}
+.demande{margin-top:8px;background:#F7EFDC;border-left:4px solid var(--or);border-radius:8px;padding:8px 12px;font-size:16.5px}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:16.5px}
+dt{color:var(--gris)}
+dd{margin:0;overflow-wrap:anywhere}
+.cmd a{color:var(--eau);font-weight:700}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{min-height:48px;font-size:16.5px}
+.vide{color:var(--gris);text-align:center;padding:24px}
+.etoiles{color:var(--etoile);font-size:21px;letter-spacing:2px}
+.etoiles span{color:var(--ecume)}
+@media (max-width:420px){.tuile{padding:10px}.tuile b{font-size:22px}.tuile span{font-size:13.5px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 5 C50 5 17 41 17 63 a33 33 0 0 0 66 0 C83 41 50 5 50 5z" fill="#FFFFFF"/><circle cx="38" cy="42" r="6" fill="#7FD0DB"/><circle cx="47" cy="31" r="3.5" fill="#0E5A78"/><circle cx="53" cy="44" r="4" fill="none" stroke="#7FD0DB" stroke-width="2"/><path d="M65 35 l1.7 5 5 1.7 -5 1.7 -1.7 5 -1.7 -5 -5 -1.7 5 -1.7z" fill="#D9A93C"/><path d="M27 76 L27 69 Q28 65 33 64 L42 62 L49 55 Q51 53 54 53 L64 53 Q67 53 69 55.5 L74 61 Q77 62 77 66 L77 76 Z" fill="#0A2536"/><path d="M50.5 56 L46 61.5 L57 61.5 L57 56 Z" fill="#7FD0DB"/><path d="M59.5 56 L59.5 61.5 L71 61.5 L67.5 57 Q66.6 56 65 56 Z" fill="#7FD0DB"/><circle cx="38" cy="76" r="5.5" fill="#0A2536" stroke="#FFFFFF" stroke-width="2"/><circle cx="66" cy="76" r="5.5" fill="#0A2536" stroke="#FFFFFF" stroke-width="2"/><path d="M31 87 H69" stroke="#0E5A78" stroke-width="2.5" stroke-linecap="round"/></svg>
+      <span>Mousse Mobile<small>Espace gérant</small></span>
+    </div>
+    <button type="button" id="deconnexion" hidden>Se déconnecter</button>
+  </header>
+
+  <p class="bandeau" id="bandeau-demo" hidden>Aperçu avec des exemples. Les vraies demandes des clients s'afficheront ici une fois l'appli reliée à Firebase.</p>
+
+  <main>
+    <p class="info" id="etat" style="margin-top:20px">Chargement…</p>
+
+    <form class="carte connexion" id="v-connexion" hidden novalidate>
+      <h1 style="font-size:26px">Connexion des gérants</h1>
+      <div class="champ"><label for="email">Adresse e-mail</label><input type="email" id="email" autocomplete="username"></div>
+      <div class="champ"><label for="mdp">Mot de passe</label><input type="password" id="mdp" autocomplete="current-password"></div>
+      <p class="erreur" id="erreur-connexion" role="alert"></p>
+      <button type="submit" class="btn-eau" id="se-connecter">Se connecter</button>
+    </form>
+
+    <div id="v-tableau" hidden>
+      <div class="alerte" id="alerte" role="status" hidden><i aria-hidden="true"></i><span id="alerte-texte"></span></div>
+      <div class="tuiles">
+        <div class="tuile" id="tuile-nouv"><b id="t-nouv">0</b><span>Nouvelles demandes</span></div>
+        <div class="tuile"><b id="t-cours">0</b><span>En cours</span></div>
+        <div class="tuile"><b id="t-note">–</b><span>Note moyenne</span></div>
+      </div>
+      <div class="onglets" id="onglets"></div>
+      <p class="erreur" id="erreur" role="alert" style="margin-bottom:10px"></p>
+      <div class="liste" id="liste"></div>
+    </div>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script type="module">
+const CFG = window.FIREBASE_CONFIG || {};
+const V = "10.12.2";
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const gnf = n => Math.round(+n || 0).toLocaleString("fr-FR").replace(/[  ]/g, " ") + " GNF";
+const estLien = u => /^https?:\/\/\S+$/.test(String(u || "").trim());
+const STATUTS = {nouvelle:"Nouvelle", acceptee:"Acceptée", en_route:"En route", terminee:"Terminée", annulee:"Annulée"};
+const SUIVANT = {nouvelle:["acceptee","Accepter la demande"], acceptee:["en_route","Je pars chez le client"], en_route:["terminee","Lavage terminé"]};
+const FILTRES = [["actives","À faire"],["terminee","Terminées"],["annulee","Annulées"],["avis","Avis clients"]];
+const G = {demo:false, cmds:[], avis:[], filtre:"actives", connus:null, fs:null, db:null, desabos:[]};
+
+function dateTexte(ts){
+  const d = ts && ts.toDate ? ts.toDate() : null;
+  if(!d) return "à l'instant";
+  const auj = new Date().toDateString() === d.toDateString();
+  return (auj ? "aujourd'hui" : d.toLocaleDateString("fr-FR",{day:"numeric",month:"long"})) + " à " + d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
+}
+function jourTexte(j){ return j ? new Date(j+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}) : ""; }
+
+/* Son d'alerte pour une nouvelle demande */
+let audio = null;
+function preparerSon(){ try{ audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume && audio.resume(); }catch(_){} }
+function sonner(){
+  try{
+    if(!audio) return;
+    [0, .22].forEach(t => {
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.frequency.value = 880; o.connect(g); g.connect(audio.destination);
+      g.gain.setValueAtTime(.0001, audio.currentTime + t);
+      g.gain.exponentialRampToValueAtTime(.3, audio.currentTime + t + .02);
+      g.gain.exponentialRampToValueAtTime(.0001, audio.currentTime + t + .18);
+      o.start(audio.currentTime + t); o.stop(audio.currentTime + t + .2);
+    });
+  }catch(_){}
+  try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(_){}
+}
+document.addEventListener("click", preparerSon, {once:true});
+
+function rendu(){
+  const nouv = G.cmds.filter(c => c.statut === "nouvelle").length;
+  $("t-nouv").textContent = nouv;
+  $("tuile-nouv").classList.toggle("chaud", nouv > 0);
+  $("t-cours").textContent = G.cmds.filter(c => c.statut === "acceptee" || c.statut === "en_route").length;
+  $("t-note").textContent = G.avis.length ? (G.avis.reduce((s,a) => s + (+a.note || 0), 0) / G.avis.length).toFixed(1).replace(".", ",") + " / 5" : "–";
+  document.title = (nouv ? "(" + nouv + ") " : "") + "Mousse Mobile – Espace gérant";
+  $("onglets").innerHTML = FILTRES.map(([k,t]) => `<button type="button" data-f="${k}" aria-pressed="${G.filtre===k}">${t}${k==="actives"&&nouv?" ("+nouv+")":""}</button>`).join("");
+  const L = $("liste");
+  if(G.filtre === "avis"){
+    L.innerHTML = G.avis.length ? G.avis.map(a => {
+      const n = Math.max(0, Math.min(5, +a.note || 0));
+      return `<article class="cmd"><div class="cmd-tete"><span class="etoiles" aria-label="${n} sur 5">${"★".repeat(n)}<span>${"★".repeat(5-n)}</span></span><small>${dateTexte(a.cree)}</small></div>
+        ${a.commentaire ? `<p>${esc(a.commentaire)}</p>` : ""}
+        <p class="info">${esc(a.client || "Client anonyme")}${a.ref ? " · " + esc(a.ref) : ""}</p>
+        <div class="actions"><button type="button" class="btn-blanc" data-del="avis" data-id="${esc(a.id)}">Supprimer</button></div></article>`;
+    }).join("") : `<p class="vide">Aucun avis pour l'instant.</p>`;
+    return;
+  }
+  const liste = G.filtre === "actives" ? G.cmds.filter(c => SUIVANT[c.statut]) : G.cmds.filter(c => c.statut === G.filtre);
+  L.innerHTML = liste.length ? liste.map(c => {
+    const s = SUIVANT[c.statut];
+    const tel = String(c.tel || "").replace(/[^\d+]/g, "");
+    const prefs = Array.isArray(c.preferences) ? c.preferences : [];
+    return `<article class="cmd" data-s="${esc(c.statut)}">
+      <div class="cmd-tete">
+        <div><b>${esc(c.client || "Client")}</b><small>${esc(c.ref)} · reçue ${dateTexte(c.cree)}</small></div>
+        <span class="pastille ${esc(c.statut)}">${STATUTS[c.statut] || esc(c.statut)}</span>
+      </div>
+      <div class="formule"><b>${esc(c.formule)}${c.moteur ? " + lavage moteur" : ""}</b><span>${gnf(c.total)}</span></div>
+      <div class="prefs">
+        <h3>Préférences du client</h3>
+        ${prefs.length ? `<div class="chips">${prefs.map(p => `<span class="chip">${esc(p)}</span>`).join("")}</div>` : `<p class="info">Aucune préférence cochée.</p>`}
+        ${c.autreDemande ? `<p class="demande"><b>Demande :</b> ${esc(c.autreDemande)}</p>` : ""}
+      </div>
+      <dl>
+        <dt>Téléphone</dt><dd>${tel ? `<a href="tel:${esc(tel)}">${esc(c.tel)}</a>` : "–"}</dd>
+        <dt>Véhicule</dt><dd>${esc(c.vehicule)}</dd>
+        <dt>Quartier</dt><dd>${esc(c.quartier)}${estLien(c.position) ? ` · <a href="${esc(c.position)}" target="_blank" rel="noopener">Ouvrir la carte</a>` : " · position non partagée"}</dd>
+        <dt>Quand</dt><dd>${esc(jourTexte(c.jour))}, ${esc(String(c.creneau || "").toLowerCase())}</dd>
+        <dt>Eau sur place</dt><dd>${esc(c.eau)}</dd>
+        <dt>Paiement</dt><dd>${esc(c.paiement)}</dd>
+      </dl>
+      <div class="actions">
+        ${s ? `<button type="button" class="btn-eau" data-id="${esc(c.id)}" data-st="${s[0]}">${s[1]}</button>
+               <button type="button" class="btn-blanc" data-id="${esc(c.id)}" data-st="annulee">Annuler</button>`
+            : `<button type="button" class="btn-blanc" data-del="commandes" data-id="${esc(c.id)}">Supprimer</button>`}
+      </div>
+    </article>`;
+  }).join("") : `<p class="vide">${G.filtre === "actives" ? "Aucune demande à traiter. Les nouvelles demandes apparaîtront ici toutes seules." : "Rien ici pour l'instant."}</p>`;
+}
+
+function alerter(n){
+  $("alerte-texte").textContent = n > 1 ? n + " nouvelles demandes viennent d'arriver" : "Une nouvelle demande vient d'arriver";
+  $("alerte").hidden = false; sonner();
+  clearTimeout(alerter.t); alerter.t = setTimeout(() => $("alerte").hidden = true, 15000);
+}
+
+function ecouter(){
+  const {fs, db} = G;
+  const erreurLecture = e => {
+    $("erreur").textContent = e && e.code === "permission-denied"
+      ? "Ce compte n'a pas accès aux demandes. Son adresse e-mail doit être ajoutée dans les règles Firestore."
+      : "Les demandes ne peuvent pas être lues pour le moment. Vérifiez la connexion internet.";
+  };
+  const qC = fs.query(fs.collection(db, "commandes"), fs.orderBy("cree", "desc"), fs.limit(300));
+  G.desabos.push(fs.onSnapshot(qC, snap => {
+    G.cmds = snap.docs.map(d => Object.assign({id:d.id}, d.data()));
+    const ids = new Set(G.cmds.map(c => c.id));
+    if(G.connus){
+      const nouvelles = G.cmds.filter(c => !G.connus.has(c.id) && c.statut === "nouvelle").length;
+      if(nouvelles) alerter(nouvelles);
+    }
+    G.connus = ids; $("erreur").textContent = ""; rendu();
+  }, erreurLecture));
+  const qA = fs.query(fs.collection(db, "avis"), fs.orderBy("cree", "desc"), fs.limit(300));
+  G.desabos.push(fs.onSnapshot(qA, snap => { G.avis = snap.docs.map(d => Object.assign({id:d.id}, d.data())); rendu(); }, erreurLecture));
+}
+
+/* Aperçu sans Firebase : exemples clairement signalés */
+function ts(minutes){ const d = new Date(Date.now() - minutes * 60000); return {toDate: () => d}; }
+function jour(n){ const d = new Date(); d.setDate(d.getDate() + n); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0,10); }
+function demo(){
+  G.demo = true;
+  $("etat").hidden = true; $("bandeau-demo").hidden = false; $("v-tableau").hidden = false;
+  G.cmds = [
+    {id:"d1", ref:"MM-1111-4821", client:"Mariama Bah", tel:"621 45 78 90", vehicule:"Grosse voiture", formule:"Lavage soigné et brillant", moteur:true, total:430000,
+     preferences:["Insister sur les jantes et les pneus","Aucun parfum, aucune odeur forte"], autreDemande:"Attention à la rayure sur la portière arrière.",
+     quartier:"Kipé", position:"https://www.google.com/maps?q=9.6006,-13.6337", eau:"Oui", jour:jour(0), creneau:"Entre 10 h et 12 h", paiement:"Orange Money", statut:"nouvelle", cree:ts(4)},
+    {id:"d2", ref:"MM-1111-3307", client:"Ibrahima Sow", tel:"664 12 34 56", vehicule:"Petite voiture", formule:"Lavage simple avec produit", moteur:false, total:250000,
+     preferences:["Vitres impeccables, sans traces","Je veux être présent pendant le lavage"], autreDemande:"",
+     quartier:"Lambanyi", position:"", eau:"Non, à apporter", jour:jour(0), creneau:"Entre 14 h et 16 h", paiement:"Espèces", statut:"acceptee", cree:ts(52)},
+    {id:"d3", ref:"MM-1011-9150", client:"Fatoumata Camara", tel:"628 98 76 54", vehicule:"Grosse voiture", formule:"Retour de long voyage", moteur:false, total:500000,
+     preferences:["Bien nettoyer les tapis et le coffre"], autreDemande:"",
+     quartier:"Taouyah", position:"https://www.google.com/maps?q=9.5711,-13.6531", eau:"Oui", jour:jour(-1), creneau:"Le plus tôt possible", paiement:"MTN MoMo", statut:"terminee", cree:ts(1500)}
+  ];
+  G.avis = [
+    {id:"a1", note:5, commentaire:"Voiture comme neuve, équipe très polie.", client:"Fatoumata Camara", ref:"MM-1011-9150", cree:ts(1380)},
+    {id:"a2", note:4, commentaire:"Bon travail, un peu de retard.", client:"", ref:"", cree:ts(2900)}
+  ];
+  rendu();
+  setTimeout(() => {
+    G.cmds.unshift({id:"d4", ref:"MM-1111-7712", client:"Alpha Diallo", tel:"657 00 11 22", vehicule:"Petite voiture", formule:"Lavage simple", moteur:false, total:150000,
+      preferences:["Ne pas toucher à mes affaires personnelles"], autreDemande:"Je suis au 2e étage, appelez en arrivant.",
+      quartier:"Ratoma Centre", position:"", eau:"Oui", jour:jour(1), creneau:"Entre 8 h et 10 h", paiement:"Espèces", statut:"nouvelle", cree:ts(0)});
+    alerter(1); rendu();
+  }, 9000);
+}
+
+async function demarrer(){
+  if(!(CFG.apiKey && CFG.projectId)){ demo(); return; }
+  let appM, auth, fs;
+  try{
+    const base = "https://www.gstatic.com/firebasejs/" + V + "/";
+    appM = await import(base + "firebase-app.js");
+    auth = await import(base + "firebase-auth.js");
+    fs = await import(base + "firebase-firestore.js");
+  }catch(_){
+    $("etat").textContent = "Impossible de charger l'espace gérant. Vérifiez la connexion internet et rechargez la page.";
+    return;
+  }
+  const app = appM.initializeApp(CFG);
+  const a = auth.getAuth(app);
+  G.fs = fs; G.db = fs.getFirestore(app);
+
+  auth.onAuthStateChanged(a, u => {
+    G.desabos.forEach(f => f()); G.desabos = []; G.connus = null; G.cmds = []; G.avis = [];
+    $("etat").hidden = true;
+    $("v-connexion").hidden = !!u; $("v-tableau").hidden = !u; $("deconnexion").hidden = !u;
+    if(u) ecouter();
+  });
+
+  $("v-connexion").addEventListener("submit", async e => {
+    e.preventDefault(); preparerSon();
+    const b = $("se-connecter"), err = $("erreur-connexion");
+    const email = $("email").value.trim(), mdp = $("mdp").value;
+    if(!email || !mdp){ err.textContent = "Écrivez votre adresse e-mail et votre mot de passe."; return; }
+    b.disabled = true; b.textContent = "Connexion…"; err.textContent = "";
+    try{ await auth.signInWithEmailAndPassword(a, email, mdp); }
+    catch(x){
+      err.textContent = /invalid|wrong|user-not-found/.test(x && x.code || "")
+        ? "Adresse e-mail ou mot de passe incorrect."
+        : (x && x.code === "auth/too-many-requests" ? "Trop d'essais. Attendez quelques minutes." : "La connexion n'a pas marché. Vérifiez internet et réessayez.");
+    }finally{ b.disabled = false; b.textContent = "Se connecter"; }
+  });
+  $("deconnexion").addEventListener("click", () => auth.signOut(a));
+}
+
+$("onglets").addEventListener("click", e => { const b = e.target.closest("button"); if(b){ G.filtre = b.dataset.f; rendu(); } });
+$("liste").addEventListener("click", async e => {
+  const b = e.target.closest("button"); if(!b) return;
+  if(G.demo){
+    if(b.dataset.st){ const c = G.cmds.find(x => x.id === b.dataset.id); if(c) c.statut = b.dataset.st; }
+    else if(b.dataset.del){
+      if(!b.dataset.confirm){ b.dataset.confirm = "1"; b.textContent = "Confirmer la suppression"; return; }
+      const col = b.dataset.del === "avis" ? "avis" : "cmds"; G[col] = G[col].filter(x => x.id !== b.dataset.id);
+    }
+    rendu(); return;
+  }
+  if(!G.fs) return;
+  const {fs, db} = G;
+  try{
+    if(b.dataset.st){
+      b.disabled = true;
+      await fs.updateDoc(fs.doc(db, "commandes", b.dataset.id), {statut: b.dataset.st, maj: fs.serverTimestamp()});
+    }else if(b.dataset.del){
+      if(!b.dataset.confirm){ b.dataset.confirm = "1"; b.textContent = "Confirmer la suppression"; return; }
+      b.disabled = true;
+      await fs.deleteDoc(fs.doc(db, b.dataset.del, b.dataset.id));
+    }
+  }catch(_){
+    b.disabled = false;
+    $("erreur").textContent = "Le changement n'a pas été enregistré. Vérifiez la connexion et réessayez.";
+  }
+});
+
+demarrer();
+</script>
+</body>
+</html>
